@@ -6,7 +6,7 @@ def conv_bn(cin, cout, k=3, s=1, g=1):
     return nn.Sequential(
         nn.Conv2d(cin, cout, k, s, k // 2, groups=g, bias=False),
         nn.BatchNorm2d(cout),
-        nn.ReLU6(inplace=True),
+        nn.ReLU(inplace=True),
     )
 
 class DSBlock(nn.Module):
@@ -16,12 +16,12 @@ class DSBlock(nn.Module):
         self.dw = nn.Sequential(
             nn.Conv2d(cin, cin, 3, s, 1, groups=cin, bias=False),
             nn.BatchNorm2d(cin),
-            nn.ReLU6(inplace=True),
+            nn.ReLU(inplace=True),
         )
         self.pw = nn.Sequential(
             nn.Conv2d(cin, cout, 1, 1, 0, bias=False),
             nn.BatchNorm2d(cout),
-            nn.ReLU6(inplace=True),
+            nn.ReLU(inplace=True),
         )
 
     def forward(self, x):

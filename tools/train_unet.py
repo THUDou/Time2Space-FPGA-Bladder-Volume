@@ -140,6 +140,9 @@ def main():
         if ev["dice"] > best:
             best = ev["dice"]
             torch.save(model.state_dict(), os.path.join(CKPT, "best.pt"))
+        with open(os.path.join(CKPT, "history.json"), "w", encoding="utf-8") as f:
+            json.dump(dict(params=vars(a), history=hist, best_dice=best), f,
+                      ensure_ascii=False, indent=1)
     with open(os.path.join(CKPT, "history.json"), "w", encoding="utf-8") as f:
         json.dump(dict(params=vars(a), history=hist, best_dice=best), f, ensure_ascii=False, indent=1)
     print("BEST_DICE", round(best, 4), "->", os.path.join(CKPT, "best.pt"))
